@@ -19,9 +19,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('project-tracking/export/', views.export_projects_csv, name='export_projects_csv'),
     path('audit-logs/', views.audit_logs, name='audit_logs'),
-    path('moderation/', views.moderation_queue, name='moderation_queue'),
-    path('moderation/resolve/<int:report_id>/', views.resolve_report, name='resolve_report'),
-    path('announcements/', views.manage_announcements, name='manage_announcements'),
-    path('announcements/delete/<int:pk>/', views.delete_announcement, name='delete_announcement'),
     path('project-tracking/delete/<int:pk>/', views.admin_delete_project, name='admin_delete_project'),
 ]

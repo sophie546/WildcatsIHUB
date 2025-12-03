@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Project, Category, Report
+from .models import Project, Category
 from accounts.models import UserProfile
 from django.utils import timezone
 from datetime import timedelta
@@ -219,24 +219,3 @@ def edit_project(request, project_id):
         'categories': categories
     }
     return render(request, 'projects/project_form.html', context)
-
-@login_required
-def report_project(request, project_id):
-    """Handle project reporting"""
-    project = get_object_or_404(Project, id=project_id)
-    
-    if request.method == 'POST':
-        reason = request.POST.get('reason')
-        description = request.POST.get('description')
-        
-        Report.objects.create(
-            project=project,
-            reported_by=request.user,
-            reason=reason,
-            description=description
-        )
-        
-        messages.success(request, "Thank you. The report has been submitted to admins.")
-        return redirect('view_project', project_id=project.id)
-    
-    return redirect('view_project', project_id=project.id)

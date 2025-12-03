@@ -57,23 +57,3 @@ class Project(models.Model):
     
     def __str__(self):
         return self.title
-
-# --- NEW: Report Model for Moderation ---
-class Report(models.Model):
-    REASON_CHOICES = [
-        ('inappropriate', 'Inappropriate Content'),
-        ('spam', 'Spam or Misleading'),
-        ('plagiarism', 'Plagiarism / Not Original Work'),
-        ('broken', 'Broken Link / Does Not Work'),
-        ('other', 'Other'),
-    ]
-
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='reports')
-    reported_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    reason = models.CharField(max_length=20, choices=REASON_CHOICES)
-    description = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_resolved = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"Report on {self.project.title} - {self.reason}"

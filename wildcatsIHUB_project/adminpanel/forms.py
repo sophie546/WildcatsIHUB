@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from accounts.models import UserProfile 
 from projects.models import Project, Category
-from .models import Announcement
 
 class ProjectForm(forms.ModelForm):
     # Dynamic Category Dropdown
@@ -103,13 +102,3 @@ class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['avatar']
-
-class AnnouncementForm(forms.ModelForm):
-    class Meta:
-        model = Announcement
-        fields = ['title', 'message', 'is_active']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Announcement Title'}),
-            'message': forms.Textarea(attrs={'class': 'form-input', 'rows': 3, 'placeholder': 'Enter your message...'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-checkbox'}),
-        }

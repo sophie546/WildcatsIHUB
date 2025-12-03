@@ -59,16 +59,6 @@
                 <i class="fas fa-history"></i>
                 <span class="link-text">Audit Logs</span>
             </a>
-
-            <a href="{% url 'moderation_queue' %}" class="{% if request.resolver_match.url_name == 'moderation_queue' %}active{% endif %}">
-                <i class="fas fa-flag" style="color: #ff5252;"></i>
-                <span class="link-text">Moderation</span>
-            </a>
-
-            <a href="{% url 'manage_announcements' %}" class="{% if request.resolver_match.url_name == 'manage_announcements' %}active{% endif %}">
-                <i class="fas fa-bullhorn"></i>
-                <span class="link-text">Announcements</span>
-            </a>
             
             <a href="{% url 'admin_profile' %}" class="{% if request.resolver_match.url_name == 'admin_profile' %}active{% endif %}">
               <i class="fas fa-user"></i>

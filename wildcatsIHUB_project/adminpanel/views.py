@@ -5,17 +5,17 @@ from django.db import transaction
 from django.db.models import Q 
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
-from django.utils import timezone # <--- NEW IMPORT
-from projects.models import Project, Report
+from django.utils import timezone
+from projects.models import Project
 from accounts.models import UserProfile 
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .forms import AdminUserForm, AdminProfileForm, UserManagementForm, UserProfileEditForm, ProjectForm, AnnouncementForm
-from django.core.mail import send_mail # <--- Make sure this is imported at the top!
+from .forms import AdminUserForm, AdminProfileForm, UserManagementForm, UserProfileEditForm, ProjectForm
+from django.core.mail import send_mail
 from django.conf import settings
 import json
 import csv
 from django.http import HttpResponse
-from .models import AuditLog, Announcement
+from .models import AuditLog
 
 def is_admin(user):
     return user.is_active and user.is_staff
@@ -449,54 +449,6 @@ def audit_logs(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, "adminpanel/audit_logs.html", {"logs": page_obj})
-
-@login_required(login_url='/accounts/login/')
-@user_passes_test(is_admin)
-def moderation_queue(request):
-    # Get unresolved reports
-    reports = Report.objects.filter(is_resolved=False).select_related('project', 'reported_by')
-    return render(request, 'adminpanel/moderation_queue.html', {'reports': reports})
-
-@login_required(login_url='/accounts/login/')
-@user_passes_test(is_admin)
-def resolve_report(request, report_id):
-    report = get_object_or_404(Report, id=report_id)
-    action = request.POST.get('action')
-    
-    if action == 'dismiss':
-        report.is_resolved = True
-        report.save()
-        messages.success(request, "Report dismissed.")
-        
-    elif action == 'delete_project':
-        project_title = report.project.title
-        report.project.delete() # This deletes the project AND the report (cascade)
-        messages.warning(request, f"Project '{project_title}' has been deleted.")
-        
-    return redirect('moderation_queue')
-
-@login_required(login_url='/accounts/login/')
-@user_passes_test(is_admin)
-def manage_announcements(request):
-    if request.method == 'POST':
-        form = AnnouncementForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Announcement posted successfully!")
-            return redirect('manage_announcements')
-    else:
-        form = AnnouncementForm()
-    
-    announcements = Announcement.objects.all()
-    return render(request, 'adminpanel/manage_announcements.html', {'form': form, 'announcements': announcements})
-
-@login_required(login_url='/accounts/login/')
-@user_passes_test(is_admin)
-def delete_announcement(request, pk):
-    announcement = get_object_or_404(Announcement, pk=pk)
-    announcement.delete()
-    messages.success(request, "Announcement deleted.")
-    return redirect('manage_announcements')
 
 @login_required(login_url='/accounts/login/')
 @user_passes_test(is_admin)
