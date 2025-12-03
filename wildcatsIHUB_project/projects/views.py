@@ -50,12 +50,14 @@ def delete_project(request, project_id):
 
 def home(request):
     """Home page with all projects and feed"""
-    all_projects = Project.objects.all().select_related('author__user').order_by('-created_at')
+    # Show only approved projects in main feed
+    all_projects = Project.objects.filter(status='Approved').select_related('author__user').order_by('-created_at')
     
     my_recent_projects = Project.objects.none()
     if request.user.is_authenticated:
         try:
             user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+            # Show ALL user's own projects (including pending) in their personal feed
             my_recent_projects = Project.objects.filter(author=user_profile).order_by('-created_at')[:6]
         except Exception:
             pass
@@ -135,8 +137,8 @@ def submit_project(request):
     return render(request, 'projects/project_form.html', {'categories': categories})
 
 def gallery(request):
-    """Project gallery view - publicly accessible"""
-    projects = Project.objects.all().select_related('author__user').order_by('-created_at')
+    """Project gallery view - publicly accessible (only approved projects)"""
+    projects = Project.objects.filter(status='Approved').select_related('author__user').order_by('-created_at')
     return render(request, "projects/gallery.html", {"projects": projects})
 
 @login_required

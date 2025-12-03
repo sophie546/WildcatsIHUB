@@ -746,9 +746,9 @@ def landing_page(request):
 
 
 def gallery(request):
-    """Project gallery view - publicly accessible (shows ALL projects)"""
+    """Project gallery view - publicly accessible (only approved projects)"""
     print(f"Gallery accessed - User: {request.user}, Auth: {request.user.is_authenticated}")
-    projects = Project.objects.all().select_related('author__user').order_by('-created_at')
+    projects = Project.objects.filter(status='Approved').select_related('author__user').order_by('-created_at')
     return render(request, "projects/gallery.html", {"projects": projects})
 
 
