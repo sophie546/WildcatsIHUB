@@ -9,6 +9,7 @@ import supabase
 from django.conf import settings
 import os
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 supabase_client = supabase.create_client(
     'https://pizsazxthvvavhdbowzi.supabase.co',
@@ -711,19 +712,32 @@ def edit_project(request, project_id):
 @login_required
 def delete_project(request, project_id):
     """
-    Handle project deletion
+    Handle project deletion - deletes immediately when accessed
     """
     project = get_object_or_404(Project, id=project_id)
     
     # Check if user owns this project
     if project.author.user != request.user:
-        return redirect('user_profile')
+        messages.error(request, "You don't have permission to delete this project.")
+        return redirect('home')  # Redirect to home if not owner
     
-    if request.method == 'POST':
-        project.delete()
-        return redirect('user_profile')
+    # Get project title for success message
+    project_title = project.title
     
-    return render(request, 'projects/confirm_delete.html', {'project': project})
+    # Delete the project
+    project.delete()
+    
+    # Show success message
+    messages.success(request, f"Project '{project_title}' has been deleted successfully!")
+    
+    # Redirect to the user's projects page
+    # First check if we have a 'next' parameter
+    next_url = request.GET.get('next')
+    if next_url:
+        return redirect(next_url)
+    
+    # Otherwise redirect to a safe default
+    return redirect('dashboard')
 
 
 # EXISTING VIEWS - KEEP THESE
