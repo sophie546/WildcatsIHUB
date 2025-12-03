@@ -14,22 +14,27 @@
     <header class="gallery-header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-code"></i>
+                <!-- LEFT SIDE: Logo and Navigation -->
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h1>Wildcats' Hub</h1>
                     </div>
-                    <h1>Wildcats' Hub</h1>
+                    <nav class="main-nav">
+                        <a href="{% url 'home' %}" class="nav-link">Home</a>
+                        <a href="{% url 'gallery' %}" class="nav-link active">Project Gallery</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+                        {% endif %}
+                    </nav>
                 </div>
-                <nav class="main-nav">
-                    <a href="{% url 'home' %}" class="nav-link">Home</a>
-                    <a href="{% url 'gallery' %}" class="nav-link active">Project Gallery</a>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'submit_project' %}" class="nav-link">Submit Project</a>
-                    {% endif %}
-                </nav>
+                
+                <!-- RIGHT SIDE: User Actions -->
                 <div class="user-actions">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'user_profile' %}" class="user-profile-link" id="userProfileLink">
+                        <a href="{% url 'user_profile' %}" class="user-profile-link">
                             <div class="user-profile">
                                 <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=1e5cff&color=fff" alt="{{ user.username }}">
                             </div>
@@ -182,7 +187,13 @@
                     </div>
                     <span>Wildcats' Hub</span>
                 </div>
-
+                <div class="footer-links">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'gallery' %}">Gallery</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'user_profile' %}">Profile</a>
+                    {% endif %}
+                </div>
                 <div class="footer-copyright">
                     &copy; 2023 Wildcats' Hub. All rights reserved.
                 </div>
@@ -301,7 +312,7 @@
                 if (searchTimeout) {
                     clearTimeout(searchTimeout);
                 }
-                searchTimeout = setTimeout(handleSearch, 500); // Increased delay to reduce lag
+                searchTimeout = setTimeout(handleSearch, 500);
             });
             
             searchInput.addEventListener('keyup', function(event) {
@@ -327,15 +338,6 @@
                 document.querySelector('#cat-all').checked = true;
                 
                 applyFilters();
-            }
-
-            // Ensure user profile link works without interference
-            const userProfileLink = document.getElementById('userProfileLink');
-            if (userProfileLink) {
-                userProfileLink.addEventListener('click', function(e) {
-                    // Let the link work normally - no prevention
-                    console.log('Navigating to user profile...');
-                });
             }
         });
     </script>

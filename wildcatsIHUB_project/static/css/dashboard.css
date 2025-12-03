@@ -29,9 +29,9 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 1.1rem; /* Reduced from 1.25rem */
+  font-size: 1.1rem;
   font-weight: 700;
-  color: #000; /* Changed from #1e5cff to black */
+  color: #000;
 }
 
 .logo-icon {
@@ -58,27 +58,64 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
-  font-size: 0.95rem; /* Added smaller font size */
+  font-size: 0.95rem;
+  position: relative;
+  padding: 0.5rem 0;
 }
 
 .nav-menu a:hover {
   color: #1e5cff;
 }
 
+/* Active navigation link styling */
+.nav-menu a.active {
+  color: #1e5cff;
+  font-weight: 600;
+}
+
+/* Underline indicator for active link */
+.nav-menu a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #1e5cff;
+  border-radius: 1px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Make the Submit Project button BIGGER */
 .btn-get-started {
   background: #1e5cff;
   color: white !important;
-  padding: 0.6rem 1.25rem;
+  padding: 0.7rem 1.5rem !important; /* INCREASED from 0.6rem 1.25rem */
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s ease;
-  font-size: 0.9rem; /* Added smaller font size */
+  font-size: 0.90rem !important; /* INCREASED font size */
+  white-space: nowrap;
+  display: inline-block;
+  margin-left: 1rem; /* Add some spacing from other nav items */
+  border: none;
+  cursor: pointer;
+  text-decoration: none !important;
 }
 
 .btn-get-started:hover {
   background: #155DFD;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 92, 255, 0.3);
+  transform: translateY(-2px); /* Bigger hover lift */
+  box-shadow: 0 6px 15px rgba(30, 92, 255, 0.4) !important; /* Stronger shadow */
 }
 
 /* Container */
@@ -120,7 +157,7 @@ body {
 }
 
 .welcome-text h1 {
-  font-size: 2rem; /* Reduced from 2.25rem */
+  font-size: 2rem;
   color: white;
   margin-bottom: 0.75rem;
   font-weight: 700;
@@ -129,7 +166,7 @@ body {
 
 .subtitle {
   color: #cbd5e0;
-  font-size: 1rem; /* Reduced from 1.1rem */
+  font-size: 1rem;
   font-weight: 400;
 }
 
@@ -172,13 +209,13 @@ body {
 .user-name {
   font-weight: 600;
   color: white;
-  font-size: 1.1rem; /* Reduced from 1.2rem */
+  font-size: 1.1rem;
   margin-bottom: 0.25rem;
 }
 
 .user-role {
   color: #a0aec0;
-  font-size: 0.9rem; /* Reduced from 0.95rem */
+  font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.5px;
 }
@@ -236,7 +273,7 @@ body {
 .stat-card:nth-child(4) .stat-icon { background: #fffbeb; color: #f59e0b; }
 
 .stat-value {
-  font-size: 2rem; /* Reduced from 2.25rem */
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
@@ -247,7 +284,7 @@ body {
 .stat-card:nth-child(4) .stat-value { color: #f59e0b; }
 
 .stat-label {
-  font-size: 0.95rem; /* Reduced from 1rem */
+  font-size: 0.95rem;
   color: #4a5568;
   font-weight: 600;
   margin-bottom: 0.25rem;
@@ -259,7 +296,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
-  font-size: 0.85rem; /* Reduced from 0.875rem */
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
@@ -284,7 +321,7 @@ body {
 }
 
 .section-title {
-  font-size: 1.4rem; /* Reduced from 1.5rem */
+  font-size: 1.4rem;
   color: #1a202c;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -293,7 +330,7 @@ body {
 .section-subtitle {
   color: #718096;
   margin-bottom: 2rem;
-  font-size: 0.95rem; /* Reduced from 1rem */
+  font-size: 0.95rem;
 }
 
 .projects-list {
@@ -326,7 +363,7 @@ body {
 }
 
 .project-title {
-  font-size: 1.2rem; /* Reduced from 1.25rem */
+  font-size: 1.2rem;
   color: #1a202c;
   font-weight: 600;
   display: flex;
@@ -336,7 +373,7 @@ body {
 }
 
 .project-category {
-  font-size: 0.7rem; /* Reduced from 0.75rem */
+  font-size: 0.7rem;
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
   font-weight: 600;
@@ -359,7 +396,7 @@ body {
 }
 
 .project-status {
-  font-size: 0.75rem; /* Reduced from 0.8rem */
+  font-size: 0.75rem;
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
   font-weight: 600;
@@ -369,14 +406,14 @@ body {
 
 .project-date {
   color: #9ca3af;
-  font-size: 0.85rem; /* Reduced from 0.875rem */
+  font-size: 0.85rem;
 }
 
 .project-description {
   color: #4a5568;
   line-height: 1.6;
   margin-bottom: 1rem;
-  font-size: 0.95rem; /* Added smaller font size */
+  font-size: 0.95rem;
 }
 
 .tech-stack {
@@ -391,7 +428,7 @@ body {
   color: #3730a3;
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
-  font-size: 0.75rem; /* Reduced from 0.8rem */
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
@@ -408,7 +445,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   color: #718096;
-  font-size: 0.85rem; /* Reduced from 0.875rem */
+  font-size: 0.85rem;
 }
 
 .project-actions {
@@ -423,7 +460,7 @@ body {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85rem; /* Reduced from 0.9rem */
+  font-size: 0.85rem;
   transition: all 0.2s ease;
   border: none;
   cursor: pointer;
@@ -442,7 +479,7 @@ body {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85rem; /* Reduced from 0.9rem */
+  font-size: 0.85rem;
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -469,7 +506,7 @@ body {
 }
 
 .card-title {
-  font-size: 1.05rem; /* Reduced from 1.1rem */
+  font-size: 1.05rem;
   color: #1a202c;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -492,7 +529,7 @@ body {
   background: #f7fafc;
   font-weight: 500;
   transition: all 0.2s ease;
-  font-size: 0.9rem; /* Added smaller font size */
+  font-size: 0.9rem;
 }
 
 .action-btn:hover {
@@ -530,13 +567,13 @@ body {
 
 .stat-label {
   color: #718096;
-  font-size: 0.85rem; /* Reduced from 0.875rem */
+  font-size: 0.85rem;
 }
 
 .stat-number {
   font-weight: 600;
   color: #2d3748;
-  font-size: 0.95rem; /* Reduced from 1rem */
+  font-size: 0.95rem;
 }
 
 .activity-feed {
@@ -571,12 +608,12 @@ body {
   font-weight: 500;
   color: #2d3748;
   margin-bottom: 0.25rem;
-  font-size: 0.85rem; /* Reduced from 0.9rem */
+  font-size: 0.85rem;
 }
 
 .activity-time {
   color: #9ca3af;
-  font-size: 0.75rem; /* Reduced from 0.8rem */
+  font-size: 0.75rem;
 }
 
 /* Empty State */
@@ -587,7 +624,7 @@ body {
 }
 
 .empty-state h3 {
-  font-size: 1.4rem; /* Reduced from 1.5rem */
+  font-size: 1.4rem;
   color: #2d3748;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -595,7 +632,7 @@ body {
 
 .empty-state p {
   margin-bottom: 2rem;
-  font-size: 0.95rem; /* Reduced from 1rem */
+  font-size: 0.95rem;
 }
 
 /* Focus removal */

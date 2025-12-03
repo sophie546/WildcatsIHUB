@@ -35,7 +35,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* Header Styles - UPDATED for better structure */
 .gallery-header {
     background: var(--bg-white);
     border-bottom: 1px solid var(--border-color);
@@ -50,6 +50,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Space between logo and nav */
 }
 
 .logo {
@@ -164,6 +170,7 @@ body {
     box-shadow: var(--shadow);
 }
 
+/* Rest of your gallery CSS remains the same... */
 /* Hero Section */
 .hero-section {
     padding: 4rem 0 3rem;
@@ -425,7 +432,6 @@ body {
 }
 
 /* Fixed Tech Tags Styling - Proper spacing */
-/* Fixed Tech Tags Styling - Proper spacing and layout */
 .tech-tags {
     display: flex;
     flex-wrap: wrap;
@@ -644,6 +650,13 @@ body {
     .header-content {
         flex-direction: column;
         gap: 1.2rem;
+    }
+    
+    .header-left {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        align-items: center;
     }
     
     .main-nav {
